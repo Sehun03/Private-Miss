@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Math Surprise</title>
+
+<style>
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.paper {
+    background: white;
+    padding: 50px;
+    width: 320px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    text-align: left;
+    font-size: 32px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+}
+
+.line {
+    border-bottom: 2px solid black;
+    width: 140px;
+    margin: 5px 0;
+}
+
+.center {
+    text-align: center;
+}
+
+input {
+    margin-top: 20px;
+    padding: 8px;
+    font-size: 18px;
+    width: 100px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Flowers */
+.flower {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation: fall linear forwards;
+    z-index: 1;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.8;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="paper">
+    <div id="math">
+        <div>100</div>
+        <div>+ 55</div>
+        <div class="line"></div>
+        <div id="result">?</div>
+    </div>
+
+    <div class="center">
+        <input type="number" id="answer" placeholder="Answer">
+        <br>
+        <button onclick="check()">Submit</button>
+    </div>
+</div>
+
+<script>
+function check() {
+    let ans = document.getElementById("answer").value;
+    let result = document.getElementById("result");
+    let math = document.getElementById("math");
+
+    if(ans == "155"){
+        // Step 1
+        result.innerHTML = "155";
+
+        // Step 2
+        setTimeout(() => {
+            math.innerHTML = `
+                M155<br>
+                YOU ❤️
+            `;
+        }, 1200);
+
+        // Step 3
+        setTimeout(() => {
+            math.innerHTML = `I'm just kidding 😅`;
+        }, 3000);
+
+        // Step 4 Final message
+        setTimeout(() => {
+            math.innerHTML = `MISS YOU A LOT ❤️`;
+            startFlowers(); // start flower animation
+        }, 6000);
+
+    } else {
+        result.innerHTML = "Try again";
+    }
+}
+
+// Flower animation
+function startFlowers() {
+    const flowers = ["🌸","🌹","🌺","💐","🌷"];
+
+    for(let i = 0; i < 40; i++) {
+        let flower = document.createElement("div");
+        flower.className = "flower";
+        flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = (3 + Math.random() * 3) + "s";
+        flower.style.fontSize = (20 + Math.random() * 20) + "px";
+
+        document.body.appendChild(flower);
+
+        // remove after falling
+        setTimeout(() => {
+            flower.remove();
+        }, 6000);
+    }
+}
+</script>
+
+</body>
+</html>
